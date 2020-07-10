@@ -1,6 +1,6 @@
 {
   "name": "@team-choco/auto-updater",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Keeping your services up to date till the Chocobos come home!",
   "repository": {
     "type": "git",

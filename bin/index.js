@@ -7,6 +7,8 @@ const args = yargs.option('package', {
   description: 'The name of the package to check for updates.',
 }).argv;
 
+console.log(args);
+
 const updater = require('../src');
 
 updater.autoUpdate(args.package, args._.join(' '));

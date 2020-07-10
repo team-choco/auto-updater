@@ -8,8 +8,8 @@
 
 ```sh
 # Basic Example
-$ npx @team-choco/auto-updater --package <package-name> <command>
+$ npx @team-choco/auto-updater --package <package-name> -- <command>
 
 # Example with Docker
-$ docker run -it --rm node:alpine ash -c "npx @team-choco/auto-updater --package <package-name> <command>"
+$ docker run -it --rm node:alpine ash -c "npx @team-choco/auto-updater --package <package-name> -- <command>"
 ```

@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 
-const [node, script, ...args] = process.argv;
+const yargs = require('yargs');
+
+const args = yargs.option('package', {
+  type: 'string',
+  description: 'The name of the package to check for updates.',
+}).argv;
 
 const updater = require('../src');
 
-updater.autoUpdate('@team-choco/choco-bot', args.join(' '));
+updater.autoUpdate(args.package, args._.join(' '));

@@ -1,20 +1,20 @@
 const path = require('path');
-const { exec, spawn } = require('child_process');
+const { exec } = require('child_process');
+
+let GLOBAL_NODE_MODULES_PATH;
 
 class NPM {
-  static #path;
-
   static async getGlobalNodeModulesPath() {
-    if (!NPM.#path) {
-      NPM.#path = new Promise((resolve, reject) =>
+    if (!GLOBAL_NODE_MODULES_PATH) {
+      GLOBAL_NODE_MODULES_PATH = new Promise((resolve, reject) =>
         exec(`npm root -g`, (error, stdout, stderr) => {
           if (error) reject(stderr);
           else resolve(stdout.trim());
-        })
+        }),
       );
     }
 
-    return NPM.#path;
+    return GLOBAL_NODE_MODULES_PATH;
   }
 
   static async getPackage(name) {
@@ -22,7 +22,7 @@ class NPM {
       return require(path.join(
         await NPM.getGlobalNodeModulesPath(),
         name,
-        'package.json'
+        'package.json',
       ));
     } catch (error) {
       if (error.code === 'MODULE_NOT_FOUND') {
@@ -43,9 +43,12 @@ class NPM {
   }
 
   static async spawn(command) {
-    return exec(command, {
-      stdio: ['pipe', process.stdout, process.stderr]
-    });
+    const spawnedProcess = exec(command);
+
+    spawnedProcess.stdout.pipe(process.stdout);
+    spawnedProcess.stderr.pipe(process.stderr);
+
+    return spawnedProcess;
   }
 }
 

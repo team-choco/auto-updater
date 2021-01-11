@@ -1,4 +1,3 @@
-const { spawn } = require('child_process');
 const latestVersion = require('latest-version');
 
 const { NPM } = require('./utils/npm');

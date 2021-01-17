@@ -13,6 +13,9 @@
     "url": "https://github.com/team-choco/auto-updater/issues"
   },
   "homepage": "https://github.com/team-choco/auto-updater",
+  "source": "src/index.ts",
+  "main": "dist/auto-updater.js",
+  "types": "dist/auto-updater.d.ts",
   "bin": "bin/index.js",
   "dependencies": {
     "latest-version": "^5.1.0",

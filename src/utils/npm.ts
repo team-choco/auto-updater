@@ -1,39 +1,8 @@
 import { exec, ChildProcess } from 'child_process';
-import * as path from 'path';
 import * as latestVersion from 'latest-version';
 
-let GLOBAL_NODE_MODULES_PATH: Promise<string>;
-
 export class NPM {
-  static async getGlobalNodeModulesPath(): Promise<string> {
-    if (!GLOBAL_NODE_MODULES_PATH) {
-      GLOBAL_NODE_MODULES_PATH = new Promise((resolve, reject) =>
-        exec(`npm root -g`, (error, stdout, stderr) => {
-          if (error) reject(stderr);
-          else resolve(stdout.trim());
-        }),
-      );
-    }
-
-    return GLOBAL_NODE_MODULES_PATH;
-  }
-
-  static async getPackage(name: string): Promise<any> {
-    try {
-      return require(path.join(
-        await NPM.getGlobalNodeModulesPath(),
-        name,
-        'package.json',
-      ));
-    } catch (error) {
-      if (error.code === 'MODULE_NOT_FOUND') {
-        return null;
-      }
-
-      throw error;
-    }
-  }
-
+  static GLOBAL_NODE_MODULES_PATH?: Promise<string>;
   static async install(name: string, version: string): Promise<string> {
     return new Promise((resolve, reject) =>
       exec(`npm install -g ${name}@${version}`, (error, stdout, stderr) => {

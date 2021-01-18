@@ -1,8 +1,9 @@
 module.exports = {
+  preset: 'ts-jest',
   cacheDirectory: './node_modules/.cache/jest',
   clearMocks: true,
   collectCoverageFrom: [
-    'src/**/*.js',
+    'src/**/*.ts',
   ],
   coveragePathIgnorePatterns : [
     '<rootDir>/.*/__test__/',
@@ -11,5 +12,5 @@ module.exports = {
   testEnvironment: 'node',
   verbose: Boolean(process.env.CI),
   testTimeout: 5000,
-  testRegex: '__test__/[^/.]+\\.spec\\.js$',
+  testRegex: '__test__/[^/.]+\\.spec\\.ts$',
 };
